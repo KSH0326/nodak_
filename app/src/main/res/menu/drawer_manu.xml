@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+    android:id="@+id/nav_mycalendar"
+    android:icon="@drawable/calendar"
+    android:title="프로필 수정"/>
+
+    <item android:title="친구목록">
+        <group android:checkableBehavior="single">
+            <menu>
+                <item
+                    android:id="@+id/nav_friend1"
+                    android:icon="@drawable/userprofile"
+                    android:title="@string/friend1" />
+                <item
+                    android:id="@+id/nav_friend2"
+                    android:icon="@drawable/userprofile"
+                    android:title="@string/friend2" />
+                <item
+                    android:id="@+id/nav_friend3"
+                    android:icon="@drawable/userprofile"
+                    android:title="@string/friend3" />
+                <item
+                    android:id="@+id/nav_friend4"
+                    android:icon="@drawable/userprofile"
+                    android:title="@string/friend4" />
+            </menu>
+        </group>
+    </item>
+
+</menu>

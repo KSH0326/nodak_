@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "450632428387",
+    "firebase_url": "https://nodak-5f842-default-rtdb.firebaseio.com",
+    "project_id": "nodak-5f842",
+    "storage_bucket": "nodak-5f842.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:450632428387:android:6490c7912fd9abcf3c8156",
+        "android_client_info": {
+          "package_name": "com.example.nodak_"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "450632428387-jrcf0ui45c81fdjb3u6bdt09usqar2jl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.nodak_",
+            "certificate_hash": "fcd96393e74059d1435d7ebbde6b2556641ac999"
+          }
+        },
+        {
+          "client_id": "450632428387-4b4261lhontf4kvm9uhe7tevh0fgk97h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBsdQxTgTSDd3Ghi8_jk5wcxhWTL8WLEdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "450632428387-4b4261lhontf4kvm9uhe7tevh0fgk97h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

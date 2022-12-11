@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">nodak_</string>
+    <string name="success_login">구글 로그인 성공</string>
+    <string name="failed_login">구글 로그인 실패</string>
+    <string name="success_logout">로그아웃 되었습니다</string>
+    <string name="status_login">이미 로그인 되어있습니다</string>
+    <string name="open">열림</string>
+    <string name="closed">닫힘</string>
+
+    <string name="Nodac">Dialog</string>
+    <string-array name="fr">
+        <item>고지혜 </item>
+        <item>김선호 </item>
+        <item>이하은 </item>
+    </string-array>
+    <string name="friend1">고지혜</string>
+    <string name="friend2">김선호</string>
+    <string name="friend3">박선우</string>
+    <string name="friend4">이하은</string>
+
+</resources>
