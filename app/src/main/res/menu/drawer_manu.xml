@@ -3,7 +3,7 @@
     <item
     android:id="@+id/nav_mycalendar"
     android:icon="@drawable/calendar"
-    android:title="프로필 수정"/>
+    android:title="내 캘린더"/>
 
     <item android:title="친구목록">
         <group android:checkableBehavior="single">

@@ -15,9 +15,10 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.NavigationDrawer">
+        android:theme="@style/Theme.NavigationDrawer"
+        android:background="@drawable/side_nav_bar">
     </androidx.appcompat.widget.Toolbar>
-        <include layout="@layout/main_calendar"/>
+        <include layout="@layout/fragment_friend1"/>
 
     </LinearLayout>
     <com.google.android.material.navigation.NavigationView

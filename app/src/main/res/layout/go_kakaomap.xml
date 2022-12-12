@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fdf5ff">
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="아래 버튼을 통해 카카오 맵 앱을 들어갑니다.&#40;카카오 맵은 미리 깔아주세요!&#41;\n\n로그인 후 상단 왼쪽 메뉴바&#40;짧은 세 직선&#41;를 클릭합니다.\n\n'톡친구 위치공유' 를 누를 쥐 원하는 친구를 선택하여 위치공유 요청을 합니다.\n\n친구가 톡으로 온 위치공유 요청을 수락하면 서로의 위치확인이 가능해 집니다!"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.639"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.636" />
+
+    <ImageView
+        android:id="@+id/nodac_img"
+        android:layout_width="380dp"
+        android:layout_height="126dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@+id/text1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.962"
+        app:srcCompat="@drawable/nodaclogo" />
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="375dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="34dp"
+        android:gravity="center"
+        android:text="저희 앱은 카카오맵 앱을 통해\n친구 위치 공유하기 기능을 사용히기를 권유하고 있습니다!"
+        android:textAlignment="center"
+        android:textColor="#66000000"
+        android:textSize="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/text2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.988"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="187dp"
+        android:layout_height="21dp"
+        android:text="&lt;친구 위치 공유하는 방법&gt;"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/text3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.891"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/num1234"
+        android:layout_width="23dp"
+        android:layout_height="199dp"
+        android:layout_marginBottom="9dp"
+        android:autoSizeTextType="uniform"
+        android:text="1&#41;\n\n\n\n2&#41;\n\n\n\n3&#41;\n\n\n\n4&#41;"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/text3"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.619" />
+
+    <ImageButton
+        android:id="@+id/kakaomapButton"
+        android:layout_width="245dp"
+        android:layout_height="48dp"
+        android:background="@android:color/transparent"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text3"
+        app:layout_constraintVertical_bias="0.437"
+        android:src="@drawable/kakaomapimage" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

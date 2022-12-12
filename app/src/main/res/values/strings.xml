@@ -8,9 +8,11 @@
     <string name="closed">닫힘</string>
 
     <string name="Nodac">Dialog</string>
+    <string name="useremail">kimkoparklee@syuin.co.kr</string>
     <string-array name="fr">
         <item>고지혜 </item>
         <item>김선호 </item>
+        <item>박선우 </item>
         <item>이하은 </item>
     </string-array>
     <string name="friend1">고지혜</string>

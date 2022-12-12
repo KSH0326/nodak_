@@ -117,13 +117,12 @@
             android:text="삭제"
             android:visibility="invisible"
             />
-                        <Button
-                            android:id="@+id/button"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="알림"/>
-                    </LinearLayout>
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="알림"/>
 
+    </LinearLayout>
 
-
-                </LinearLayout>
+</LinearLayout>

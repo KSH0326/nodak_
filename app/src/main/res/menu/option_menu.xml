@@ -3,4 +3,7 @@
     <item
         android:id="@+id/i1"
         android:title="로그아웃"/>
+    <item
+        android:id="@+id/i2"
+        android:title="알림"/>
 </menu>

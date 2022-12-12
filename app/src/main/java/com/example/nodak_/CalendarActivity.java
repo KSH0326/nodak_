@@ -9,6 +9,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -100,6 +101,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     public static final String NOTIFICATION_CHANNEL_ID = "1001";
     private CharSequence channelName = "노티피케이션 채널";
     private String description = "해당 채널에 대한 설명";
+
     private int importance = NotificationManager.IMPORTANCE_HIGH;
 
 
@@ -124,6 +126,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
+
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, googleSignInOptions);
 
@@ -155,51 +158,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         navigationView = (NavigationView)findViewById(R.id.navigation_view);
         */
-        //2022-12-10 알림
-        Button button = findViewById(R.id.button);
-        button.setOnClickListener(v->{
-
-            Intent notificationIntent = new Intent(this, CalendarActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(
-                    this,
-                    0,
-                    notificationIntent,
-                    PendingIntent.FLAG_IMMUTABLE
-            );
-            NotificationCompat.Builder builder=new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-                    .setSmallIcon(R.drawable.ic_launcher_foreground)
-                    .setContentTitle("Nodac")
-                    .setContentText("약속1")
-                    .setDefaults(Notification.DEFAULT_VIBRATE)
-                    .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                    .setAutoCancel(true)
-                    .setContentIntent(pendingIntent)
-                    .setWhen(System.currentTimeMillis());
-
-            NotificationManager notificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-                CharSequence channelName = "노티피케이션 채널";
-                String description = "해당 채널에 대한 설명";
-                int importance = NotificationManager.IMPORTANCE_HIGH;
-
-                NotificationChannel channel = new NotificationChannel(
-                        NOTIFICATION_CHANNEL_ID,
-                        channelName,
-                        importance
-                );
-                channel.setDescription(description);
-
-                assert notificationManager != null;
-                notificationManager.createNotificationChannel(channel);
-            }
-
-
-            notificationManager.notify(1234,builder.build());
-
-        });
-
-
 
 
         calendarView = findViewById(R.id.calendarView);
@@ -360,16 +318,16 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(CalendarActivity.this);
 
-        //View nav_header_view = navigationView.inflateHeaderView(R.layout.navi_header);
+
         View nav_header_view = navigationView.getHeaderView(0);
 
         nav_header_name = (TextView) nav_header_view.findViewById(R.id.tv_name);
         //유저 이름
         nav_header_name.setText(userName);
-        //프로필 사진 불러오기
+
+        //저장된 프로필 사진 불러오기
         profile_img = (ImageView) nav_header_view.findViewById(R.id.iv_image);
         root.child(userId).child("user_imageurl").addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(@Nullable DataSnapshot dataSnapshot) {
                 //이미지 저장한게 있으면 불러오기
@@ -381,7 +339,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(CalendarActivity.this, "오류 발생", Toast.LENGTH_SHORT).show();
@@ -421,31 +378,61 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
                 int id = menuItem.getItemId();
 
-
+                //프로필 사진만 클릭 인식이 불가능해서 그냥 메뉴 선택 시 적용
                 if (id == R.id.nav_friend1){
                     Toast.makeText(getApplicationContext(), "메뉴아이템 1 선택", Toast.LENGTH_SHORT).show();
-                    //프로필 사진 클릭 시 선택
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+
+                    Intent intent = new Intent(getApplicationContext(),friend_page.class);
+                    String i = menuItem.getTitle().toString();
+                    intent.putExtra("name",i);
                     startActivity(intent);
+
                 }else if(id == R.id.nav_friend2){
                     Toast.makeText(getApplicationContext(), "메뉴아이템 2 선택", Toast.LENGTH_SHORT).show();
+                    //drawable로 변경은 가능하나 uri로 불가
+                    menuItem.setIcon(R.drawable.ic_launcher_foreground);
+                    Intent intent = new Intent(getApplicationContext(),friend_page.class);
+                    String i = menuItem.getTitle().toString();
+                    intent.putExtra("name",i);
+                    startActivity(intent);
+
                 }else if(id == R.id.nav_friend3){
                     Toast.makeText(getApplicationContext(), "메뉴아이템 3 선택", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(getApplicationContext(),friend_page.class);
+                    String i = menuItem.getTitle().toString();
+                    intent.putExtra("name",i);
+                    startActivity(intent);
                 }
 
                 DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                //사이드 메뉴 닫음
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
         });
 
     }
+    //선택한 프로필 사진 모델에 담고 저장
+    ActivityResultLauncher<Intent> activityResult_fr = registerForActivityResult (new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        imageUri = result.getData().getData();
+                        profile_img.setImageURI(imageUri);
 
-    //파이어베이스 일정 업로드
+                        uploadToFirebase_profile(imageUri);
+
+                    }
+                }
+            });
+
+    //파이어베이스 프로필사진 업로드
     private void uploadToFirebase_profile(Uri uri){
 
         //이미지 이름 선언 후 업로드
-        StorageReference fileRef = reference.child(date + "." + getFileExtension(uri));
+        StorageReference fileRef = reference.child(userId + "." + getFileExtension(uri));
         fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -461,7 +448,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                         //프로그래스바 숨김
                         progressBar.setVisibility(View.INVISIBLE);
                         Toast.makeText(CalendarActivity.this,"성공", Toast.LENGTH_SHORT).show();
-                        imgv.setImageResource(R.drawable.ic_add_photo);
+                        profile_img.setImageResource(R.drawable.ic_add_photo);
                     }
                 });
             }
@@ -491,8 +478,45 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case android.R.id.home:{ // 왼쪽 상단 버튼 눌렀을 때
-                drawerLayout.openDrawer(GravityCompat.START);
+            case R.id.i2:{ // 알림 클릭
+                Intent notificationIntent = new Intent(this, Kakaomap.class);
+                PendingIntent pendingIntent = PendingIntent.getActivity(
+                        this,
+                        0,
+                        notificationIntent,
+                        PendingIntent.FLAG_IMMUTABLE
+                );
+                NotificationCompat.Builder builder=new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                        .setSmallIcon(R.drawable.ic_launcher_foreground)
+                        .setContentTitle("Nodac")
+                        .setContentText(titleText.getText())
+                        .setDefaults(Notification.DEFAULT_VIBRATE)
+                        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                        .setAutoCancel(true)
+                        .setContentIntent(pendingIntent)
+                        .setWhen(System.currentTimeMillis());
+
+                NotificationManager notificationManager=(NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                    CharSequence channelName = "노티피케이션 채널";
+                    String description = "해당 채널에 대한 설명";
+                    int importance = NotificationManager.IMPORTANCE_HIGH;
+
+                    NotificationChannel channel = new NotificationChannel(
+                            NOTIFICATION_CHANNEL_ID,
+                            channelName,
+                            importance
+                    );
+                    channel.setDescription(description);
+
+                    assert notificationManager != null;
+                    notificationManager.createNotificationChannel(channel);
+                }
+
+
+                notificationManager.notify(1234,builder.build());
+
                 return true;
             }
             case R.id.i1:{
@@ -569,6 +593,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
         return mine.getExtensionFromMimeType(cr.getType(uri));
     }
+
     //파이어베이스 일정 업로드
     private void uploadToFirebase(Uri uri){
         //제목 내용 태그 업로드
