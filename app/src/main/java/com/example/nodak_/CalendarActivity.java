@@ -310,7 +310,7 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
         // 사이드 메뉴를 오픈하기위한 아이콘 추가
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("nodak");
+        getSupportActionBar().setTitle("nodac");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24);
 
         // 사이드 네브바 구현
@@ -380,7 +380,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
 
                 //프로필 사진만 클릭 인식이 불가능해서 그냥 메뉴 선택 시 적용
                 if (id == R.id.nav_friend1){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 1 선택", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
                     String i = menuItem.getTitle().toString();
@@ -388,7 +387,6 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     startActivity(intent);
 
                 }else if(id == R.id.nav_friend2){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 2 선택", Toast.LENGTH_SHORT).show();
                     //drawable로 변경은 가능하나 uri로 불가
                     menuItem.setIcon(R.drawable.ic_launcher_foreground);
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
@@ -397,11 +395,21 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
                     startActivity(intent);
 
                 }else if(id == R.id.nav_friend3){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 3 선택", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
                     String i = menuItem.getTitle().toString();
                     intent.putExtra("name",i);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_friend4){
+
+                    Intent intent = new Intent(getApplicationContext(),friend_page.class);
+                    String i = menuItem.getTitle().toString();
+                    intent.putExtra("name",i);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_mycalendar){
+                    Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
                     startActivity(intent);
                 }
 
@@ -602,40 +610,46 @@ public class CalendarActivity extends AppCompatActivity implements NavigationVie
         root.child(userId).child("schedule").child(date).child("content").setValue(contentText.getText().toString());
         root.child(userId).child("schedule").child(date).child("tag").setValue(tag.getText().toString());
         //이미지 이름 선언 후 업로드
-        StorageReference fileRef = reference.child(date + "." + getFileExtension(uri));
-        fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        //이미지 모델에 담기
-                        ImgModel model = new ImgModel(uri.toString());
-                        //키로 아이디 생성
-                        String modelId = root.push().getKey();
-                        //데이터넣기
-                        root.child(userId).child("schedule").child(date).child("imageurl").setValue(uri.toString());
-                        //프로그래스바 숨김
-                        progressBar.setVisibility(View.INVISIBLE);
-                        Toast.makeText(CalendarActivity.this,"성공", Toast.LENGTH_SHORT).show();
-                        imgv.setImageResource(R.drawable.ic_add_photo);
-                    }
-                });
-            }
-        }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-                //프로그래스바 보여주기
-                progressBar.setVisibility(View.VISIBLE);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                //프로그래스바 숨김
-                progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(CalendarActivity.this, "실패", Toast.LENGTH_SHORT).show();
-            }
-        });
+        if (uri != null){
+            StorageReference fileRef = reference.child(date + "." + getFileExtension(uri));
+            fileRef.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    fileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            //이미지 모델에 담기
+                            ImgModel model = new ImgModel(uri.toString());
+                            //키로 아이디 생성
+                            String modelId = root.push().getKey();
+                            //데이터넣기
+                            root.child(userId).child("schedule").child(date).child("imageurl").setValue(uri.toString());
+                            //프로그래스바 숨김
+                            progressBar.setVisibility(View.INVISIBLE);
+                            Toast.makeText(CalendarActivity.this,"성공", Toast.LENGTH_SHORT).show();
+                            imgv.setImageResource(R.drawable.ic_add_photo);
+                        }
+                    });
+                }
+            }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    //프로그래스바 보여주기
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    //프로그래스바 숨김
+                    progressBar.setVisibility(View.INVISIBLE);
+                    Toast.makeText(CalendarActivity.this, "실패", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else{
+            Toast.makeText(CalendarActivity.this, "이미지 외 변경사항이 저장되었습니다", Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     //2022-12-06 다이얼로그

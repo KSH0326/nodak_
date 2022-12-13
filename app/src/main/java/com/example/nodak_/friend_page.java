@@ -111,7 +111,7 @@ public class friend_page extends AppCompatActivity implements NavigationView.OnN
 
         // 사이드 메뉴를 오픈하기위한 아이콘 추가
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("nodak");
+        getSupportActionBar().setTitle("nodac");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_dehaze_24);
 
         // 사이드 네브바 구현
@@ -178,7 +178,6 @@ public class friend_page extends AppCompatActivity implements NavigationView.OnN
 
                 //프로필 사진만 클릭 인식이 불가능해서 그냥 메뉴 선택 시 적용
                 if (id == R.id.nav_friend1){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 1 선택", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
                     String i = menuItem.getTitle().toString();
@@ -186,7 +185,6 @@ public class friend_page extends AppCompatActivity implements NavigationView.OnN
                     startActivity(intent);
 
                 }else if(id == R.id.nav_friend2){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 2 선택", Toast.LENGTH_SHORT).show();
                     //drawable로 변경은 가능하나 uri로 불가
                     menuItem.setIcon(R.drawable.ic_launcher_foreground);
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
@@ -195,7 +193,6 @@ public class friend_page extends AppCompatActivity implements NavigationView.OnN
                     startActivity(intent);
 
                 }else if(id == R.id.nav_friend3){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 3 선택", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
                     String i = menuItem.getTitle().toString();
@@ -203,11 +200,14 @@ public class friend_page extends AppCompatActivity implements NavigationView.OnN
                     startActivity(intent);
                 }
                 else if(id == R.id.nav_friend4){
-                    Toast.makeText(getApplicationContext(), "메뉴아이템 4 선택", Toast.LENGTH_SHORT).show();
 
                     Intent intent = new Intent(getApplicationContext(),friend_page.class);
                     String i = menuItem.getTitle().toString();
                     intent.putExtra("name",i);
+                    startActivity(intent);
+                }
+                else if(id == R.id.nav_mycalendar){
+                    Intent intent = new Intent(getApplicationContext(),CalendarActivity.class);
                     startActivity(intent);
                 }
 

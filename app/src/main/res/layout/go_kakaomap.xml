@@ -3,14 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#fdf5ff">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/text3"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="아래 버튼을 통해 카카오 맵 앱을 들어갑니다.&#40;카카오 맵은 미리 깔아주세요!&#41;\n\n로그인 후 상단 왼쪽 메뉴바&#40;짧은 세 직선&#41;를 클릭합니다.\n\n'톡친구 위치공유' 를 누를 쥐 원하는 친구를 선택하여 위치공유 요청을 합니다.\n\n친구가 톡으로 온 위치공유 요청을 수락하면 서로의 위치확인이 가능해 집니다!"
+        android:text="아래 버튼을 통해 카카오 맵 앱을 들어갑니다.&#40;카카오 맵은 미리 깔아주세요!&#41;\n\n로그인 후 상단 왼쪽 메뉴바&#40;짧은 세 직선&#41;를 클릭합니다.\n\n'톡친구 위치공유' 를 누른 뒤 원하는 친구를 선택하여 위치공유 요청을 합니다.\n\n친구가 톡으로 온 위치공유 요청을 수락하면 서로의 위치확인이 가능해 집니다!"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.962"
-        app:srcCompat="@drawable/nodaclogo" />
+        app:srcCompat="@drawable/logo_blue" />
 
     <TextView
         android:id="@+id/text1"
